@@ -1,0 +1,192 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.calculator {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  transition: all 0.3s ease;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+}
+
+input,
+select,
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 4px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  border: none;
+  margin-top: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.reset-btn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.reset-btn:hover {
+  background-color: #d32f2f;
+}
+
+#result {
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.result-group {
+  margin-top: 12px;
+  font-size: 1rem;
+  background: #e6f7ff;
+  padding: 10px 12px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
+}
+
+.result-group.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.result-group span {
+  font-weight: bold;
+  color: #007bff;
+}
+.result-group strong {
+  font-weight: 600;
+}
+.result-group span {
+  font-weight: bold;
+}
+
+.result-text {
+  margin-top: 16px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  color: #333;
+}
+
+@media (max-width: 600px) {
+  .calculator {
+    padding: 16px;
+    box-shadow: none;
+    border-radius: 0;
+    max-width: 100%;
+  }
+
+  h1 {
+    font-size: 1.2rem;
+  }
+
+  input,
+  select,
+  button {
+    font-size: 0.95rem;
+  }
+
+  #result {
+    font-size: 0.95rem;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  body {
+    padding: 40px;
+  }
+
+  .calculator {
+    max-width: 500px;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .calculator {
+    max-width: 450px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-6px);
+  }
+  50% {
+    transform: translateX(6px);
+  }
+  75% {
+    transform: translateX(-6px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.shake {
+  animation: shake 0.4s ease;
+}

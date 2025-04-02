@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kalkulator styropianu</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="calculator">
+      <h1>Kalkulator styropianu</h1>
+
+      <label>
+        Rodzaj styropianu:
+        <select id="type">
+          <option value="zwykły">Zwykły</option>
+          <option value="frezowany">Frezowany</option>
+        </select>
+      </label>
+
+      <label>
+        Powierzchnia do ocieplenia (m²):
+        <input type="number" id="area" min="0" step="1" placeholder="np. 100" />
+      </label>
+
+      <label>
+        Grubość styropianu (cm):
+        <input
+          type="number"
+          id="thickness"
+          min="0"
+          step="1"
+          placeholder="np. 15"
+        />
+      </label>
+
+      <button id="calculateBtn">Oblicz</button>
+
+      <div class="result-group">
+        <strong>Ilość (m³):</strong>
+        <span id="volume">–</span>
+      </div>
+
+      <div class="result-group">
+        <strong>Minimalna objętość handlowa (m³):</strong>
+        <span id="packVolume">–</span>
+      </div>
+
+      <div class="result-group">
+        <strong>Liczba paczek:</strong>
+        <span id="packs">–</span>
+      </div>
+      <p id="result" class="result-text"></p>
+
+      <button id="resetBtn" class="reset-btn">Wyczyść</button>
+    </div>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>
