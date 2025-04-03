@@ -25,13 +25,7 @@
 
       <label>
         Grubość styropianu (cm):
-        <input
-          type="number"
-          id="thickness"
-          min="0"
-          step="1"
-          placeholder="np. 15"
-        />
+        <select id="thickness"></select>
       </label>
 
       <button id="calculateBtn">Oblicz</button>
@@ -42,7 +36,7 @@
       </div>
 
       <div class="result-group">
-        <strong>Minimalna objętość handlowa (m³):</strong>
+        <strong>Objętość paczki (m³):</strong>
         <span id="packVolume">–</span>
       </div>
 
@@ -50,9 +44,16 @@
         <strong>Liczba paczek:</strong>
         <span id="packs">–</span>
       </div>
-      <p id="result" class="result-text"></p>
 
-      <button id="resetBtn" class="reset-btn">Wyczyść</button>
+      <div class="result-container">
+        <p id="result" class="result-text"></p>
+      </div>
+
+      <hr class="separator" />
+
+      <div class="button-wrapper">
+        <button id="resetBtn" class="reset-btn">Wyczyść</button>
+      </div>
     </div>
 
     <script src="script.js" defer></script>

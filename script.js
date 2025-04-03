@@ -37,11 +37,26 @@ const packVolumes = {
   },
 };
 
+const allowedThicknesses = {
+  zwykły: Object.keys(packVolumes.zwykły).map(Number),
+  frezowany: Object.keys(packVolumes.frezowany).map(Number),
+};
+
+function updateThicknessOptions(type) {
+  const select = document.getElementById("thickness");
+  select.innerHTML = "";
+  allowedThicknesses[type].forEach((cm) => {
+    const option = document.createElement("option");
+    option.value = cm;
+    option.textContent = `${cm} cm`;
+    select.appendChild(option);
+  });
+}
+
 function calculatePacks() {
   const area = parseFloat(document.getElementById("area").value);
-  const thicknessCm = parseFloat(document.getElementById("thickness").value);
+  const thicknessCm = parseInt(document.getElementById("thickness").value);
   const type = document.getElementById("type").value;
-  const thicknessInt = parseInt(thicknessCm);
 
   const volumeEl = document.getElementById("volume");
   const packVolumeEl = document.getElementById("packVolume");
@@ -55,34 +70,25 @@ function calculatePacks() {
   resultEl.textContent = "";
   hideResultGroups();
 
-  // Walidacja wejściowa
-  if (
-    isNaN(area) ||
-    isNaN(thicknessCm) ||
-    area <= 0 ||
-    thicknessCm <= 0 ||
-    !Number.isInteger(area) ||
-    !Number.isInteger(thicknessCm)
-  ) {
+  if (isNaN(area) || area <= 0 || !Number.isInteger(area)) {
     showError(
-      "Wprowadź poprawne liczby całkowite większe od zera.",
+      "Wprowadź poprawną powierzchnię (liczba całkowita większa od zera).",
       calculator
     );
     return;
   }
 
-  const packVolume = packVolumes[type]?.[thicknessInt];
+  const packVolume = packVolumes[type]?.[thicknessCm];
 
   if (!packVolume) {
     showError(
-      `Brak danych dla grubości ${thicknessInt} mm (${type}).`,
+      `Brak danych dla grubości ${thicknessCm} cm (${type}).`,
       calculator
     );
     return;
   }
 
-  const thicknessM = thicknessCm / 100;
-  const neededVolume = area * thicknessM;
+  const neededVolume = area * (thicknessCm / 100);
   const neededPacks = Math.ceil(neededVolume / packVolume);
 
   volumeEl.textContent = neededVolume.toFixed(2);
@@ -95,6 +101,7 @@ function calculatePacks() {
     Rodzaj styropianu: <strong>${type}</strong>.
   `;
 
+  resultEl.classList.add("visible");
   showResultGroups();
 }
 
@@ -118,14 +125,20 @@ function showError(message, element) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  updateThicknessOptions("zwykły");
+
+  document.getElementById("type").addEventListener("change", function (e) {
+    updateThicknessOptions(e.target.value);
+  });
+
   document
     .getElementById("calculateBtn")
     ?.addEventListener("click", calculatePacks);
 
   document.getElementById("resetBtn")?.addEventListener("click", function () {
     document.getElementById("area").value = "";
-    document.getElementById("thickness").value = "";
     document.getElementById("type").value = "zwykły";
+    updateThicknessOptions("zwykły");
 
     document.getElementById("volume").textContent = "–";
     document.getElementById("packVolume").textContent = "–";

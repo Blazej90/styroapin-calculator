@@ -114,12 +114,45 @@ button:hover {
   font-weight: bold;
 }
 
-.result-text {
+.result-container {
   margin-top: 16px;
+}
+
+.result-text {
   font-size: 1rem;
   font-weight: 500;
   text-align: center;
   color: #333;
+  margin-top: 16px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+}
+
+.result-text.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.button-wrapper {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.reset-btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.reset-btn:hover {
+  background-color: #d32f2f;
 }
 
 @media (max-width: 600px) {
