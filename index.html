@@ -7,55 +7,80 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="calculator">
-      <h1>Kalkulator styropianu</h1>
+    <div class="container">
+      <div class="calculator">
+        <h1>Kalkulator styropianu</h1>
 
-      <label>
-        Rodzaj styropianu:
-        <select id="type">
-          <option value="zwykły">Zwykły</option>
-          <option value="frezowany">Frezowany</option>
-        </select>
-      </label>
+        <label>
+          Rodzaj styropianu:
+          <select id="type">
+            <option value="zwykły">Zwykły</option>
+            <option value="frezowany">Frezowany</option>
+          </select>
+        </label>
 
-      <label>
-        Powierzchnia do ocieplenia (m²):
-        <input type="number" id="area" min="0" step="1" placeholder="np. 100" />
-      </label>
+        <label>
+          Powierzchnia do ocieplenia (m²):
+          <input
+            type="number"
+            id="area"
+            min="0"
+            step="1"
+            placeholder="np. 100"
+          />
+        </label>
 
-      <label>
-        Grubość styropianu (cm):
-        <select id="thickness"></select>
-      </label>
+        <label>
+          Grubość styropianu (cm):
+          <select id="thickness"></select>
+        </label>
 
-      <button id="calculateBtn">Oblicz</button>
+        <button id="calculateBtn">Oblicz</button>
 
-      <div class="result-group">
-        <strong>Ilość (m³):</strong>
-        <span id="volume">–</span>
+        <div class="result-group">
+          <strong>Ilość (m³):</strong>
+          <span id="volume">–</span>
+        </div>
+
+        <div class="result-group">
+          <strong>Objętość paczki (m³):</strong>
+          <span id="packVolume">–</span>
+        </div>
+
+        <div class="result-group">
+          <strong>Liczba paczek:</strong>
+          <span id="packs">–</span>
+        </div>
+
+        <div class="result-container">
+          <p id="result" class="result-text"></p>
+        </div>
+
+        <hr class="separator" />
+
+        <div class="button-wrapper">
+          <button id="resetBtn" class="reset-btn">Wyczyść</button>
+        </div>
+        <footer class="footer">
+          <p>© 2025 Błażej Bartoszewski. Wszystkie prawa zastrzeżone.</p>
+          <div class="footer-links">
+            <a href="https://blazej-portfolio-sand.vercel.app/" target="_blank"
+              >Portfolio</a
+            >
+            <a
+              href="https://github.com/Blazej90?tab=repositories"
+              target="_blank"
+              >GitHub</a
+            >
+            <a
+              href="https://linkedin.com/in/błażej-bartoszewski-36b7162b7"
+              target="_blank"
+              >LinkedIn</a
+            >
+          </div>
+        </footer>
       </div>
-
-      <div class="result-group">
-        <strong>Objętość paczki (m³):</strong>
-        <span id="packVolume">–</span>
-      </div>
-
-      <div class="result-group">
-        <strong>Liczba paczek:</strong>
-        <span id="packs">–</span>
-      </div>
-
-      <div class="result-container">
-        <p id="result" class="result-text"></p>
-      </div>
-
-      <hr class="separator" />
-
-      <div class="button-wrapper">
-        <button id="resetBtn" class="reset-btn">Wyczyść</button>
-      </div>
+      <script src="script.js" defer></script>
     </div>
-
-    <script src="script.js" defer></script>
   </body>
 </html>
