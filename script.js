@@ -1,17 +1,53 @@
+const packVolumes = {
+  zwykły: {
+    1: 0.3,
+    2: 0.3,
+    3: 0.3,
+    4: 0.3,
+    5: 0.3,
+    6: 0.3,
+    7: 0.28,
+    8: 0.28,
+    9: 0.27,
+    10: 0.3,
+    11: 0.275,
+    12: 0.3,
+    14: 0.28,
+    15: 0.3,
+    16: 0.24,
+    17: 0.255,
+    18: 0.27,
+    20: 0.3,
+  },
+  frezowany: {
+    5: 0.28,
+    6: 0.28,
+    7: 0.26,
+    8: 0.26,
+    9: 0.25,
+    10: 0.28,
+    11: 0.28,
+    12: 0.26,
+    14: 0.26,
+    15: 0.28,
+    16: 0.23,
+    17: 0.24,
+    18: 0.25,
+    20: 0.28,
+  },
+};
+
 function calculatePacks() {
-  const areaInput = document.getElementById("area").value;
-  const thicknessInput = document.getElementById("thickness").value;
+  const area = parseFloat(document.getElementById("area").value);
+  const thicknessCm = parseFloat(document.getElementById("thickness").value);
   const type = document.getElementById("type").value;
+  const thicknessInt = parseInt(thicknessCm);
 
   const volumeEl = document.getElementById("volume");
   const packVolumeEl = document.getElementById("packVolume");
   const packsEl = document.getElementById("packs");
   const resultEl = document.getElementById("result");
-
-  if (!volumeEl || !packVolumeEl || !packsEl || !resultEl) {
-    console.error("Nie znaleziono elementów wynikowych w DOM.");
-    return;
-  }
+  const calculator = document.querySelector(".calculator");
 
   volumeEl.textContent = "–";
   packVolumeEl.textContent = "–";
@@ -19,9 +55,7 @@ function calculatePacks() {
   resultEl.textContent = "";
   hideResultGroups();
 
-  const area = parseFloat(areaInput);
-  const thicknessCm = parseFloat(thicknessInput);
-
+  // Walidacja wejściowa
   if (
     isNaN(area) ||
     isNaN(thicknessCm) ||
@@ -30,23 +64,25 @@ function calculatePacks() {
     !Number.isInteger(area) ||
     !Number.isInteger(thicknessCm)
   ) {
-    resultEl.textContent =
-      "Wprowadź poprawne liczby całkowite większe od zera.";
+    showError(
+      "Wprowadź poprawne liczby całkowite większe od zera.",
+      calculator
+    );
+    return;
+  }
 
-    const calculator = document.querySelector(".calculator");
-    calculator.classList.add("shake");
+  const packVolume = packVolumes[type]?.[thicknessInt];
 
-    setTimeout(() => {
-      calculator.classList.remove("shake");
-    }, 400);
-
+  if (!packVolume) {
+    showError(
+      `Brak danych dla grubości ${thicknessInt} mm (${type}).`,
+      calculator
+    );
     return;
   }
 
   const thicknessM = thicknessCm / 100;
   const neededVolume = area * thicknessM;
-
-  const packVolume = type === "frezowany" ? 0.268 : 0.28;
   const neededPacks = Math.ceil(neededVolume / packVolume);
 
   volumeEl.textContent = neededVolume.toFixed(2);
@@ -74,32 +110,28 @@ function hideResultGroups() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  const button = document.getElementById("calculateBtn");
-  if (button) {
-    button.addEventListener("click", calculatePacks);
-  }
-});
+function showError(message, element) {
+  const resultEl = document.getElementById("result");
+  resultEl.textContent = message;
+  element.classList.add("shake");
+  setTimeout(() => element.classList.remove("shake"), 400);
+}
 
 document.addEventListener("DOMContentLoaded", function () {
-  const button = document.getElementById("calculateBtn");
-  if (button) {
-    button.addEventListener("click", calculatePacks);
-  }
+  document
+    .getElementById("calculateBtn")
+    ?.addEventListener("click", calculatePacks);
 
-  const resetButton = document.getElementById("resetBtn");
-  if (resetButton) {
-    resetButton.addEventListener("click", function () {
-      document.getElementById("area").value = "";
-      document.getElementById("thickness").value = "";
-      document.getElementById("type").value = "zwykły";
+  document.getElementById("resetBtn")?.addEventListener("click", function () {
+    document.getElementById("area").value = "";
+    document.getElementById("thickness").value = "";
+    document.getElementById("type").value = "zwykły";
 
-      document.getElementById("volume").textContent = "–";
-      document.getElementById("packVolume").textContent = "–";
-      document.getElementById("packs").textContent = "–";
-      document.getElementById("result").textContent = "";
+    document.getElementById("volume").textContent = "–";
+    document.getElementById("packVolume").textContent = "–";
+    document.getElementById("packs").textContent = "–";
+    document.getElementById("result").textContent = "";
 
-      hideResultGroups();
-    });
-  }
+    hideResultGroups();
+  });
 });
